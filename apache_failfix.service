@@ -1,0 +1,8 @@
+[Unit]
+Description=Service to fix and restart apache if apache-state=failed
+
+[Service]
+ExecStart=/usr/local/bin/apache_failfix.bash
+
+[Install]
+WantedBy=multi-user.target
