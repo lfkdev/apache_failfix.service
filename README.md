@@ -17,6 +17,6 @@ After that just place the script in /usr/local/bin/ (or wherever you like) and c
 $ systemctl --full --force apache_failfix.service
 ```
 and paste the content in it (or copy the file from the repo to /etc/systemd/system/apache_failfix.service (debian/ubntu))
-now after a apache restart, next time your apache fails it will restart automatically
+now after an apache restart, next time your apache fails it will restart automatically
 
 note: if you want to recieve an email when this unit got triggered you have to adjust the bash file (where the mail comment is)
