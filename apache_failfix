@@ -20,9 +20,15 @@ restart_apache() {
     i "unlinked ${error_conf%?}" ; 
   else e "could not unlink $error_conf" ; fi
 
-  if systemctl start apache2.service ; then i "restarted apache!" ; \
-    wall -n "[APACHE-FAILFIX.SERVICE]: Restartet Apache!" ; #also send mail
-  else e "could not restart apache ;-(" ; fi
+  if apachectl configtest ; then 
+    if systemctl start apache2.service ; then i "restarted apache!" ; \
+      wall -n "[APACHE-FAILFIX.SERVICE]: Restartet Apache! (unlinked: ${error_conf%?})" ; #also send mail
+    else e "could not restart apache ;-(" ; fi
+  else
+    ap_err=$(apachectl configtest)
+    e "there are still errors in your apache config! (\n$ap_err\n) \
+       did not restart to prevent loop" 
+  fi  
 }
 
 i() { echo "$1"; }
